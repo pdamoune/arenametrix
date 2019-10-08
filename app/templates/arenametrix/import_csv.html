@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Import CSV File{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <div class="card text-center">
+        <div id="title" class="card-body text-center">
+            <h1>Import CSV</h1>
+        </div>
+    </div>
+    <div class="card page-header">
+        <div class="card-body text-center">
+            <form action="" method="post" class="form" enctype="multipart/form-data" role="form">
+                <div class="form-group  required">
+                    {{ form.file }}
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+    {% if data %}
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-responsive table-striped table-bordered table-sm table-hover tableFixHead">
+                <thead class="thead-light">
+                    <tr>
+                        {% for k in data[0].keys() %}
+                        <th>{{k}}</th>
+                        {% endfor %}
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for line in data %}
+                    <tr>
+                        {% for v in line.values() %}
+                        <td>
+                            {{v}}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

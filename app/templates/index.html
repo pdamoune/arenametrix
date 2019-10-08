@@ -6,15 +6,76 @@
 {% block page_content %}
 <div class="container">
     <div class="page-header">
+        {% if not current_user.username %}
         <div class="card">
-            <div class="card-body">
-                {% if current_user.username %}
-                <h1>Hello {{ current_user.username }}</h1>
-                {% else %}
-                <h1>Hello Stranger!</h1>
-                {% endif %}
+            <div class="card-body text-center">
+                <p>Vous devez vous logguer en Administrateur pour continuer :</p>
+                <p>login : admin@admin.com</p>
+                <p>password : password</p>
             </div>
         </div>
+        {% else %}
+        <div class="card text-center">
+            <div id="title" class="card-body text-center">
+                <h1>Python Test</h1>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div id="context" class="card-text">
+                <h4 >I- Contexte</h4>
+                <p>Le but de ce test est de réaliser une API permettant d’importer, stocker, et extraire des données provenant d’un fichier CSV.</p>
+                <p>Le fichier de données initial correspond à une liste de réservations contenant les informations sur l'acheteur, l'événement et la tarification.</p>
+            </div>
+            <div id="result_expected" class="card-text">
+                <h4>II- Résultat attendu</h4>
+                <p>L'application doit comprendre :</p>
+                <ul>
+                    <li>Une url d'import de fichier CSV</li>
+                    <li>Une url récapitulative des données en base</li>
+                </ul>
+            </div>
+            <div id="functionnal_requirements" class="card-text">
+                <h4>III- Exigences fonctionnelles</h4>
+                <p><em><strong>1. Je peux importer les données à partir d’un fichier CSV aux colonnes définies.</strong></em></p>
+                <p>L'url d’import me permet d’uploader un fichier CSV dont on considère que la forme (nom et ordre des colonnes) sera toujours la même. A l’issue de l’import, les données contenues doivent être sauvegardées dans une base relationnelle.</p>
+                <p><strong>Hors périmètre :</strong></p>
+                <ul>
+                    <li>Le choix du SGBDR et du framework sont libre.</li>
+                    <li>Certaines spécificités du domaine métier peuvent être interprétées de différentes façons lors de la modélisation des données, en l’absence de connaissances de l’existant. Tant que l’ensemble reste logique, il n’en sera pas tenu rigueur.</li>
+                </ul>
+                <p><em><strong>2. Je peux extraire les indicateurs clés représentant les publics ainsi que la performance globale.</strong></em></p>
+                <p>Sur une seconde url, je peux extraire l'ensemble des indicateurs suivants :</p>
+                <ul>
+                    <li>le nombre de réservations</li>
+                    <li>le nombre d’acheteurs uniques</li>
+                    <li>l’âge moyen des acheteurs</li>
+                    <li>le prix moyen par représentation</li>
+                    <li>le prix moyen par client</li>
+                </ul>
+                <p><strong>Hors périmètre :</strong></p>
+                <ul>
+                    <li>L'arrondi ou unité des valeurs ne sont pas utiles, ces considérations seront prise en compte par le client qui appelle l'url.</li>
+                </ul>
+            </div>
+            <div id="optionnal" class="card-text">
+                <h4>IV- Optionnel</h4>
+                <ul>
+                    <li>Implémenter des tests unitaires.</li>
+
+                    <li>Implémenter des tests fonctionnels.</li>
+
+                    <li>Ajout d'une méthode d'authentification.</li>
+
+                    <li>Ajouter un filtre sur l'url récapitulative permettant d’afficher les indicateurs pour une période particulière.</li>
+
+                    <li>Proposer un argument sur l'url permettant de choisir où seront importées les colonnes du fichier initial (pour pouvoir traiter les fichiers avec des colonnes différentes).</li>
+                </ul>
+            </div>
+
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
