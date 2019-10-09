@@ -4,7 +4,7 @@ from . import db
 class Ticket(db.Model):
     __tablename__ = 'tickets'
     id = db.Column(db.Integer, primary_key=True)
-    Numero_billet = db.Column(db.Integer)
+    Numero_billet = db.Column(db.Integer, unique=True, index=True)
     Prix = db.Column(db.Integer)
     Type_de_produit = db.Column(db.String)
     Filiere_de_vente = db.Column(db.String)
@@ -21,7 +21,7 @@ class Ticket(db.Model):
 class Reservation(db.Model):
     __tablename__ = 'reservations'
     id = db.Column(db.Integer, primary_key=True)
-    Reservation = db.Column(db.Integer)
+    Reservation = db.Column(db.Integer, unique=True, index=True)
     Date_reservation = db.Column(db.Integer)
     Heure_reservation = db.Column(db.Integer)
 
@@ -39,7 +39,7 @@ class Reservation(db.Model):
 class Spectacle(db.Model):
     __tablename__ = 'spectacles'
     id = db.Column(db.Integer, primary_key=True)
-    Cle_spectacle = db.Column(db.Integer)
+    Cle_spectacle = db.Column(db.Integer, unique=True, index=True)
     Spectacle = db.Column(db.String)
 
     tickets = db.relationship(
@@ -56,8 +56,9 @@ class Spectacle(db.Model):
 class Representation(db.Model):
     __tablename__ = 'representations'
     id = db.Column(db.Integer, primary_key=True)
-    Cle_representation = db.Column(db.Integer)
+    Cle_representation = db.Column(db.Integer, unique=True, index=True)
     Representation = db.Column(db.String)
+    Prix = db.Column(db.Integer)
     Date_representation = db.Column(db.Integer)
     Heure_representation = db.Column(db.Integer)
     Date_fin_representation = db.Column(db.Integer)
@@ -66,10 +67,11 @@ class Representation(db.Model):
     spectacle_id = db.Column(db.Integer, db.ForeignKey('spectacles.id'))
 
     tickets = db.relationship(
-        'Ticket', backref='respresentations', lazy='dynamic')
+        'Ticket', backref='representations', lazy='dynamic')
 
     customers = db.relationship(
         'Customer', secondary='link', lazy='dynamic')
+
 
 
     def __repr__(self):                                         # pragma: no cover
@@ -81,7 +83,7 @@ class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Nom = db.Column(db.String)
     Prenom = db.Column(db.String)
-    Email = db.Column(db.String)
+    Email = db.Column(db.String, unique=True, index=True)
     Adresse = db.Column(db.String)
     Code_postal = db.Column(db.Integer)
     Pays = db.Column(db.String)

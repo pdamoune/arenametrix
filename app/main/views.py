@@ -1,7 +1,8 @@
 from flask import render_template, redirect, url_for, abort, flash, request
 from . import main
 from .forms import FileForm
-from app.api.imports import importcsvtodb
+from app.api.routes import importcsvtodb
+from app.api.routes import getstats
 
 from flask_login import current_user
 
@@ -24,6 +25,23 @@ def import_csv():
     return render_template('arenametrix/import_csv.html', form=form)
 
 
+@main.route('/extract_data', methods=['GET', 'POST'])
+def extract_data():
+    data = getstats().json
+    print(data)
+    return render_template('arenametrix/extract_data.html', data=data)
+
+
+
 @main.route('/internal', methods=['GET', 'POST'])
 def internal():
     abort(500)
+
+
+data = {
+    'number_reservations': {'Nombre de réservations': 0},
+    'number_buyers': {'Nombre d’acheteurs uniques': 0},
+    'average_age': {'Age moyen des acheteurs': 0},
+    'average_price_respresentation': {'Prix moyen par représentation': 0},
+    'average_price_customer': {'Prix moyen par client': 0},
+}

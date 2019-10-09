@@ -3,6 +3,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
+    JSON_SORT_KEYS = False
+
     # Secret key
     SECRET_KEY = os.environ.get('SECRET_KEY')\
         or 'set $SECRET_KEY'
