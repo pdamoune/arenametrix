@@ -50,12 +50,13 @@ I did what most people recommend for the application's structure. Basically, eve
 
 ## Setup
 
-### Install
-
 - Install and Setup a virtual environment.
 
 	`brew install mkvirtualenv`
     `mkvirtualenv project_name`
+    `pip install -r requirements.txt`
+
+### Install
 
 - Create the database.
 

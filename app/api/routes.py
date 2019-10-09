@@ -49,6 +49,8 @@ def getnumberunicbuyers():
 def getaveragebuyersage():
     customers = Customer.query.all()
     ages = [c.Age for c in customers if c.Age is not '']
+    if len(ages) is None:
+        return jsonify('error no age')
     average_age = sum(ages) / len(ages)
     return jsonify(average_age)
 
@@ -64,6 +66,8 @@ def getaveragerepresentationprice():
     representations = Representation.query.all()
 
     prices = [p.Prix for p in representations]
+    if len(prices) is None:
+        return jsonify('error no price')
     average_price_representation = sum(prices) / len(prices)
     return jsonify(average_price_representation)
 

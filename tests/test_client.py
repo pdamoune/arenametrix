@@ -152,3 +152,36 @@ class FlaskClientTestCase(SetUpClass):
         r = self.client.get('/admin/user', follow_redirects=True)
         self.assertEqual(r.status_code, 200)
         self.assertTrue('Login' in r.get_data(as_text=True))
+
+    def test_endpoints_anonymous(self):
+        r = self.client.get('/import_csv', follow_redirects=True)
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue('Login' in r.get_data(as_text=True))
+
+        r = self.client.get('/extract_data', follow_redirects=True)
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue('Login' in r.get_data(as_text=True))
+
+    def test_endpoint_admin(self):
+        r = self.client.post('/auth/register', data={
+            'email': config['testing'].ADMIN_EMAIL,
+            'username': 'admin',
+            'password': config['testing'].ADMIN_PASSWORD,
+            'password2': config['testing'].ADMIN_PASSWORD})
+        self.assertEqual(r.status_code, 302)
+
+        r = self.client.post('/auth/login', data={
+            'email': config['testing'].ADMIN_EMAIL,
+            'password': config['testing'].ADMIN_PASSWORD},
+                follow_redirects=True)
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue('Log Out' in r.get_data(as_text=True))
+
+        r = self.client.get('/import_csv', follow_redirects=True)
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue('Import CSV' in r.get_data(as_text=True))
+
+
+        r = self.client.get('/extract_data', follow_redirects=True)
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue('Extract Data' in r.get_data(as_text=True))
