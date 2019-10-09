@@ -1,5 +1,5 @@
-# Flask Boilerplate
-### _Flask boilerplate inspired by The Flask Mega-Tutorial by Miguel Grinberg_
+# ArenaMetrix technical test
+## Based on my flask boilerplate
 
 ![License](http://img.shields.io/:license-mit-blue.svg)
 
