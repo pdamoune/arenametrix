@@ -22,17 +22,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for k, v in data.items() %}
                         <tr>
-                            <td>Key</td>
-                            <td>Value</td>
+                            <td>{{ k }}</td>
+                            <td>{{ v }}</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
-            </div>
-            <div>
-                {% for k, v in data.items() %}
-                    {{ k }} : {{ v }}<br>
-                {% endfor %}
             </div>
         </div>
     </div>
