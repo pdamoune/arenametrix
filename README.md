@@ -54,7 +54,7 @@ I did what most people recommend for the application's structure. Basically, eve
 
 	`brew install mkvirtualenv`
     `mkvirtualenv project_name`
-    `pip install -r requirements.txt`
+    `pip install -r requirement.txt`
 
 ### Install
 
